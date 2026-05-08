@@ -1,0 +1,140 @@
+/* ------------------------------
+   RESET MINIMAL
+------------------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #111;
+  color: #eee;
+  line-height: 1.6;
+  padding: 0 1rem;
+}
+
+/* ------------------------------
+   HEADER
+------------------------------ */
+header {
+  padding: 2rem 0 1rem;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: .3rem;
+}
+
+.separator {
+  width: 60px;
+  height: 2px;
+  background: #444;
+  margin-top: 1rem;
+}
+
+/* ------------------------------
+   ID CARD
+------------------------------ */
+.id-card {
+  border: 1px solid #333;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 4px;
+  background: #181818;
+}
+
+.id-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.id-label {
+  font-size: .8rem;
+  opacity: .6;
+  margin-top: 1rem;
+}
+
+.id-value {
+  font-family: monospace;
+  font-size: .9rem;
+  word-break: break-all;
+}
+
+/* ------------------------------
+   HERO BITCOIN LIVE
+------------------------------ */
+.hero-btc {
+  margin: 2rem 0;
+}
+
+.hero-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.hero-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-card {
+  border: 1px solid #333;
+  padding: 1rem;
+  border-radius: 4px;
+  background: #181818;
+}
+
+.hero-card .label {
+  font-size: .8rem;
+  opacity: .6;
+}
+
+.hero-card .value {
+  font-size: 1.4rem;
+  margin-top: .3rem;
+  font-family: monospace;
+}
+
+/* ------------------------------
+   ARTICLES LIST
+------------------------------ */
+.post-list {
+  margin: 3rem 0;
+}
+
+.post-list h2 a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+}
+
+.post-list h2 a:hover {
+  color: #000;
+  background: #fff;
+}
+
+/* ------------------------------
+   FOOTER
+------------------------------ */
+footer {
+  margin: 4rem 0 2rem;
+  text-align: center;
+  opacity: .6;
+}
+
+.top-btn {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+}
+
+.top-btn:hover {
+  background: #fff;
+  color: #000;
+}
