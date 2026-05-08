@@ -66,6 +66,45 @@
     </div>
   </section>
 
+  <!-- BITCOIN NETWORK STATS -->
+  <section class="btc-network">
+    <h2 class="hero-title">Bitcoin — Network Stats</h2>
+
+    <div class="hero-grid">
+
+      <div class="hero-card">
+        <p class="label">Hashrate (EH/s)</p>
+        <p class="value" id="btc-hashrate">…</p>
+      </div>
+
+      <div class="hero-card">
+        <p class="label">Difficulty</p>
+        <p class="value" id="btc-difficulty">…</p>
+      </div>
+
+      <div class="hero-card">
+        <p class="label">Next Adjustment</p>
+        <p class="value" id="btc-adjust">…</p>
+      </div>
+
+      <div class="hero-card">
+        <p class="label">Halving</p>
+        <p class="value" id="btc-halving">…</p>
+      </div>
+
+      <div class="hero-card">
+        <p class="label">Mempool (vMB)</p>
+        <p class="value" id="btc-vmb">…</p>
+      </div>
+
+      <div class="hero-card">
+        <p class="label">Block Time</p>
+        <p class="value" id="btc-blocktime">…</p>
+      </div>
+
+    </div>
+  </section>
+
   <!-- Liste des articles -->
   <section class="post-list">
     <article>
@@ -81,29 +120,60 @@
   <p>NostrFr — Blog souverain</p>
 </footer>
 
-<!-- SCRIPT BITCOIN LIVE INLINE (mempool.space) -->
+<!-- SCRIPT BITCOIN LIVE INLINE -->
 <script>
 async function loadBTC() {
   try {
+    /* --- Prix BTC --- */
     const priceRes = await fetch("https://mempool.space/api/v1/prices");
     const priceData = await priceRes.json();
     document.getElementById("btc-price").textContent =
       "$" + priceData.USD.toLocaleString();
 
+    /* --- Block Height --- */
     const heightRes = await fetch("https://mempool.space/api/blocks/tip/height");
     const heightData = await heightRes.json();
     document.getElementById("btc-height").textContent =
       heightData.toLocaleString();
 
+    /* --- Mempool --- */
     const mempoolRes = await fetch("https://mempool.space/api/mempool");
     const mempoolData = await mempoolRes.json();
     document.getElementById("btc-mempool").textContent =
       mempoolData.count.toLocaleString() + " tx";
 
+    /* --- Fees --- */
     const feesRes = await fetch("https://mempool.space/api/v1/fees/recommended");
     const feesData = await feesRes.json();
     document.getElementById("btc-fees").textContent =
       feesData.fastestFee.toFixed(0) + " sat/vB";
+
+    /* --- Hashrate --- */
+    const hashRes = await fetch("https://mempool.space/api/v1/mining/hashrate/3d");
+    const hashData = await hashRes.json();
+    document.getElementById("btc-hashrate").textContent =
+      (hashData / 1e18).toFixed(2);
+
+    /* --- Difficulty + Adjustment --- */
+    const diffRes = await fetch("https://mempool.space/api/v1/difficulty-adjustment");
+    const diffData = await diffRes.json();
+    document.getElementById("btc-difficulty").textContent =
+      diffData.difficulty.toLocaleString();
+    document.getElementById("btc-adjust").textContent =
+      diffData.progressPercent.toFixed(2) + "%";
+
+    /* --- Halving --- */
+    const halvingHeight = 1050000;
+    document.getElementById("btc-halving").textContent =
+      (halvingHeight - heightData).toLocaleString() + " blocks";
+
+    /* --- Mempool vMB --- */
+    document.getElementById("btc-vmb").textContent =
+      (mempoolData.vsize / 1e6).toFixed(2) + " vMB";
+
+    /* --- Block Time --- */
+    document.getElementById("btc-blocktime").textContent =
+      diffData.timeAvg.toFixed(1) + " min";
 
   } catch (e) {
     console.log("Erreur API mempool.space :", e);
