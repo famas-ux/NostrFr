@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>NostrFr by famas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/NostrFr/css/main.css">
+</head>
+
+<body id="top">
+
+<header>
+  <h1 class="reveal">NostrFr by famas</h1>
+  <p>Outils Nostr & Bitcoin & expériences utilisateur</p>
+  <div class="separator"></div>
+</header>
+
+<main>
+
+  <!-- Carte ID -->
+  <div class="id-card">
+    <h3>Identité Nostr</h3>
+
+    <p class="id-label">npub</p>
+    <p class="id-value">
+      npub1ezdda9ymya54p2jmg6x7sxas8c2v0s7u7xexcuraklv4tm3zvy4qyg83yq
+    </p>
+
+    <p class="id-label">Profil Ditto</p>
+    <p class="id-value">
+      <a href="https://ditto.pub/npub1ezdda9ymya54p2jmg6x7sxas8c2v0s7u7xexcuraklv4tm3zvy4qyg83yq" target="_blank">
+        ditto.pub / ketama
+      </a>
+    </p>
+
+    <p class="id-label">Lightning</p>
+    <p class="id-value">ketama@rizful.com</p>
+  </div>
+
+  <!-- HERO BITCOIN LIVE -->
+  <section class="hero-btc">
+    <h2 class="hero-title">Bitcoin — Live Timechain</h2>
+
+    <div class="hero-grid">
+
+      <div class="hero-card">
+        <p class="label">Prix BTC (USD)</p>
+        <p class="value" id="btc-price">…</p>
+      </div>
+
+      <div class="hero-card">
+        <p class="label">Block Height</p>
+        <p class="value" id="btc-height">…</p>
+      </div>
+
+      <div class="hero-card">
+        <p class="label">Mempool</p>
+        <p class="value" id="btc-mempool">…</p>
+      </div>
+
+      <div class="hero-card">
+        <p class="label">Fees (sat/vB)</p>
+        <p class="value" id="btc-fees">…</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Liste des articles -->
+  <section class="post-list">
+    <article>
+      <h2><a href="/NostrFr/posts/article-1.html">Article 1 — Matrice vierge</a></h2>
+      <p>Base éditoriale pour ton premier contenu.</p>
+    </article>
+  </section>
+
+</main>
+
+<footer>
+  <a href="#top" class="top-btn">↑ Haut de page</a>
+  <p>NostrFr — Blog souverain</p>
+</footer>
+
+<!-- SCRIPT BITCOIN LIVE INLINE (mempool.space) -->
+<script>
+async function loadBTC() {
+  try {
+    const priceRes = await fetch("https://mempool.space/api/v1/prices");
+    const priceData = await priceRes.json();
+    document.getElementById("btc-price").textContent =
+      "$" + priceData.USD.toLocaleString();
+
+    const heightRes = await fetch("https://mempool.space/api/blocks/tip/height");
+    const heightData = await heightRes.json();
+    document.getElementById("btc-height").textContent =
+      heightData.toLocaleString();
+
+    const mempoolRes = await fetch("https://mempool.space/api/mempool");
+    const mempoolData = await mempoolRes.json();
+    document.getElementById("btc-mempool").textContent =
+      mempoolData.count.toLocaleString() + " tx";
+
+    const feesRes = await fetch("https://mempool.space/api/v1/fees/recommended");
+    const feesData = await feesRes.json();
+    document.getElementById("btc-fees").textContent =
+      feesData.fastestFee.toFixed(0) + " sat/vB";
+
+  } catch (e) {
+    console.log("Erreur API mempool.space :", e);
+  }
+}
+
+loadBTC();
+setInterval(loadBTC, 30000);
+</script>
+
+</body>
+</html>
